@@ -5,32 +5,32 @@ import Image from "next/image";
 import { projects } from "@/lib/projects";
 import { ViewSwitcher } from "@/components/ViewSwitcher";
 
+// ponytail: matches the original grid page — 12-col CSS grid,
+// col-span-6 on mobile, xl:col-span-4, hover scale-95 + blur-inner.
 export default function GridPage() {
   return (
     <>
       <ViewSwitcher />
-      <div className="pt-14 px-4 md:px-6 pb-20">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <div className="_grid-wrp pt-10 _trns-blr">
+        <div className="grid grid-cols-12 gap-x-[10px] gap-y-[50px] px-[10px] _grid-cnt">
           {projects.map((p) => (
             <Link
               key={p.slug}
               href={`/project/${p.slug}`}
-              className="_grid-item block"
+              className="col-span-6 xl:col-span-4 flex flex-col gap-y-[10px] items-center group self-start lnk-blr-hvr-inner"
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+              <div className="transition-all duration-300">
                 <Image
                   src={p.image}
                   alt={p.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  width={600}
+                  height={600}
+                  className="w-full group-hover:scale-95 transition-all duration-300 ease-in-out"
+                  sizes="(max-width: 1280px) 50vw, 33vw"
                 />
               </div>
-              <div className="mt-2 font-pr uppercase text-sm leading-tight">
-                {p.name}
-              </div>
-              <div className="font-sc text-xs text-gray-500">
-                {p.category} — {p.year}
+              <div className="text-center leading-[1.1] inner flex flex-wrap gap-x-2 font-sc text-[15px]">
+                <span>{p.name}</span> / <span>{p.category}</span>
               </div>
             </Link>
           ))}

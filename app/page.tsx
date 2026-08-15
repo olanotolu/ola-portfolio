@@ -2,17 +2,22 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
 import { ViewSwitcher } from "@/components/ViewSwitcher";
 
+// ponytail: replicates homeProjectHover.js (desktop) + homeInfiniteScroll.js (mobile).
+// Desktop (≥1024px): hover link → show its image, blur other links.
+// Mobile (<1024px): scroll → highlight link nearest viewport center, show its image.
+// Infinite scroll: clone project list when last item enters viewport.
 export default function Home() {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const [clones, setClones] = useState(0);
 
-  // ponytail: mobile scroll highlight — listens on window, not the div.
+  // Mobile scroll highlight — breakpoint is lg (1024px), not md.
   useEffect(() => {
     function onScroll() {
-      if (window.matchMedia("(min-width: 768px)").matches) return;
+      if (window.matchMedia("(min-width: 1024px)").matches) return;
       const wrap = wrapRef.current;
       if (!wrap) return;
       const links = wrap.querySelectorAll<HTMLElement>("._prj-lnk");
@@ -29,20 +34,42 @@ export default function Home() {
         }
       });
       links.forEach((l) => {
-        l.classList.add("blurry");
+        l.classList.remove("blurry");
         l.classList.remove("is-active");
       });
-      (closest as HTMLElement | null)?.classList.add("is-active");
+      wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
+      if (closest) {
+        const c = closest as HTMLElement;
+        c.classList.add("blurry", "is-active");
+        const img = c.nextElementSibling;
+        img?.classList.add("is-active");
+      }
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [clones]);
 
-  // ponytail: desktop hover shows preview image + blurs other links;
-  // mobile scroll highlights the link closest to viewport center.
-  // Original splits this across homeProjectHover.js + homeInfiniteScroll.js.
+  // Infinite scroll — clone when last item nears viewport bottom.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setClones((c) => c + 1);
+        }
+      },
+      { threshold: 0.01 }
+    );
+    const last = wrap.querySelector("._prjs-cnt:last-child");
+    if (last) observer.observe(last);
+    return () => observer.disconnect();
+  }, [clones]);
+
+  // Desktop hover handlers
   function onMouseOver(e: React.MouseEvent) {
+    if (!window.matchMedia("(min-width: 1024px)").matches) return;
     const target = e.target as HTMLElement;
     const link = target.closest("._prj-lnk") as HTMLElement | null;
     if (!link) return;
@@ -64,42 +91,48 @@ export default function Home() {
     wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
   }
 
+  // Render project list N times (original + clones for infinite scroll)
+  const renderProjects = () =>
+    Array.from({ length: clones + 1 }).map((_, setIdx) => (
+      <div key={setIdx} className="flex flex-col items-center _prjs-cnt">
+        {projects.map((p) => (
+          <div key={p.slug}>
+            <Link
+              href={`/project/${p.slug}`}
+              data-slug={p.slug}
+              className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150"
+            >
+              <span className="pointer-events-none">{p.name}</span>
+            </Link>
+            <div
+              className="_prj-img lg:pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
+              data-for={p.slug}
+            >
+              <Image
+                src={p.image}
+                alt={p.name}
+                width={1024}
+                height={1024}
+                className="w-full mb-7"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
+                priority={setIdx === 0 && projects.findIndex((x) => x.slug === p.slug) < 3}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    ));
+
   return (
     <>
       <ViewSwitcher />
       <div
         ref={wrapRef}
-        className="_prjs-wrp pt-8 md:pt-7"
+        className="_prjs-wrp pt-8 md:pt-7 _trns-blr"
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
       >
-        <div className="flex flex-col items-center">
-          {projects.map((p) => (
-            <div key={p.slug} className="relative">
-              <Link
-                href={`/project/${p.slug}`}
-                data-slug={p.slug}
-                className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2"
-              >
-                <span className="pointer-events-none">{p.name}</span>
-              </Link>
-              <div
-                className="_prj-img fixed bottom-2 right-3 z-10 w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw]"
-                data-for={p.slug}
-              >
-                <Image
-                  src={p.image}
-                  alt={p.name}
-                  width={1024}
-                  height={1024}
-                  className="w-full mb-7"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
-                  priority={projects.indexOf(p) < 3}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+        {renderProjects()}
       </div>
     </>
   );

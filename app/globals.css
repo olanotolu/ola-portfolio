@@ -60,35 +60,30 @@ a, button { cursor: crosshair; }
   filter: blur(2px);
 }
 
-/* project link hover: blur all, unblur the hovered one */
+/* project link hover: blur all, unblur the hovered one (desktop) */
 ._prjs-wrp.hovering ._prj-lnk {
   filter: blur(2px);
-  opacity: 0.5;
   transition: all 0.15s ease;
 }
 ._prjs-wrp.hovering ._prj-lnk.is-active {
   filter: blur(0);
-  opacity: 1;
 }
 
-/* project image preview (desktop) */
+/* project image preview — invisible by default, visible when is-active.
+   Matches original: invisible + [&.is-active]:visible */
 ._prj-img {
-  opacity: 0;
   transition: opacity 0.3s ease;
-  pointer-events: none;
 }
 ._prj-img.is-active {
   opacity: 1;
 }
 
-/* mobile scroll highlight */
+/* mobile scroll highlight — blurry class on non-active links */
 ._prj-lnk.blurry {
   filter: blur(2px);
-  opacity: 0.4;
 }
 ._prj-lnk.blurry.is-active {
   filter: blur(0);
-  opacity: 1;
 }
 
 /* page wrapper — hidden during preloader, fades in after */
@@ -104,14 +99,6 @@ a, button { cursor: crosshair; }
   opacity: 1;
   filter: blur(0);
   transform: translateY(0);
-}
-
-/* grid view */
-._grid-item {
-  transition: all 0.3s ease;
-}
-._grid-item:hover {
-  filter: blur(2px);
 }
 
 /* gallery lightbox */
