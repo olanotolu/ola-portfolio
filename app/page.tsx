@@ -25,14 +25,14 @@ export default function Home() {
         const d = Math.abs(mid - vh / 2);
         if (d < min) {
           min = d;
-          closest = l;
+          closest = l as HTMLElement;
         }
       });
       links.forEach((l) => {
         l.classList.add("blurry");
         l.classList.remove("is-active");
       });
-      closest?.classList.add("is-active");
+      (closest as HTMLElement | null)?.classList.add("is-active");
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
