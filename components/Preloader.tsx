@@ -134,7 +134,7 @@ export function Preloader() {
           transition: `opacity ${T}ms ${EASE_OUT}, filter ${T}ms ${EASE_OUT}, transform ${T}ms ${EASE_OUT}`,
         }}
       >
-        Emele Collab — Creative Studio
+        Ola.
       </div>
       <div
         className="fixed bottom-3 right-3"
