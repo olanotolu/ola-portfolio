@@ -1,69 +1,106 @@
+"use client";
+
+import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { projects } from "@/lib/projects";
+import { ViewSwitcher } from "@/components/ViewSwitcher";
 
 export default function Home() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  // ponytail: mobile scroll highlight — listens on window, not the div.
+  useEffect(() => {
+    function onScroll() {
+      if (window.matchMedia("(min-width: 768px)").matches) return;
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const links = wrap.querySelectorAll<HTMLElement>("._prj-lnk");
+      const vh = window.innerHeight;
+      let closest: HTMLElement | null = null;
+      let min = Infinity;
+      links.forEach((l) => {
+        const r = l.getBoundingClientRect();
+        const mid = r.top + r.height / 2;
+        const d = Math.abs(mid - vh / 2);
+        if (d < min) {
+          min = d;
+          closest = l;
+        }
+      });
+      links.forEach((l) => {
+        l.classList.add("blurry");
+        l.classList.remove("is-active");
+      });
+      closest?.classList.add("is-active");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // ponytail: desktop hover shows preview image + blurs other links;
+  // mobile scroll highlights the link closest to viewport center.
+  // Original splits this across homeProjectHover.js + homeInfiniteScroll.js.
+  function onMouseOver(e: React.MouseEvent) {
+    const target = e.target as HTMLElement;
+    const link = target.closest("._prj-lnk") as HTMLElement | null;
+    if (!link) return;
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    wrap.classList.add("hovering");
+    wrap.querySelectorAll("._prj-lnk").forEach((l) => l.classList.remove("is-active"));
+    link.classList.add("is-active");
+    const img = wrap.querySelector(`._prj-img[data-for="${link.dataset.slug}"]`);
+    wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
+    img?.classList.add("is-active");
+  }
+
+  function onMouseOut() {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    wrap.classList.remove("hovering");
+    wrap.querySelectorAll("._prj-lnk").forEach((l) => l.classList.remove("is-active"));
+    wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <ViewSwitcher />
+      <div
+        ref={wrapRef}
+        className="_prjs-wrp pt-8 md:pt-7"
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+      >
+        <div className="flex flex-col items-center">
+          {projects.map((p) => (
+            <div key={p.slug} className="relative">
+              <Link
+                href={`/project/${p.slug}`}
+                data-slug={p.slug}
+                className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2"
+              >
+                <span className="pointer-events-none">{p.name}</span>
+              </Link>
+              <div
+                className="_prj-img fixed bottom-2 right-3 z-10 w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw]"
+                data-for={p.slug}
+              >
+                <Image
+                  src={p.image}
+                  alt={p.name}
+                  width={1024}
+                  height={1024}
+                  className="w-full mb-7"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
+                  priority={projects.indexOf(p) < 3}
+                />
+              </div>
+            </div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }

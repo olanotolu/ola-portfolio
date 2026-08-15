@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Actual fonts from emelecollab.com — same @font-face as their style.css */
+@font-face {
+  font-family: "pr";
+  src: url("/fonts/pr.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "sc";
+  src: url("/fonts/sc.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-pr: "pr", serif;
+  --font-sc: "sc", sans-serif;
+  --color-bg: #ffffff;
+  --color-fg: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Emele Collab design system: white bg, near-black text, crosshair cursor,
+   blur-on-hover links, fixed header/footer, big serif project names. */
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sc);
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+/* hide scrollbar but keep scroll */
+body::-webkit-scrollbar { width: 0; }
+body { scrollbar-width: none; }
+
+/* crosshair cursor like the original */
+body { cursor: crosshair; }
+a, button { cursor: crosshair; }
+
+/* blur-on-hover link effect — the signature interaction */
+.lnk-blr-hvr {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lnk-blr-hvr:hover {
+  filter: blur(2px);
+}
+.lnk-blr-hvr-inner .inner {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lnk-blr-hvr-inner:hover .inner {
+  filter: blur(2px);
+}
+
+/* project link hover: blur all, unblur the hovered one */
+._prjs-wrp.hovering ._prj-lnk {
+  filter: blur(2px);
+  opacity: 0.5;
+  transition: all 0.15s ease;
+}
+._prjs-wrp.hovering ._prj-lnk.is-active {
+  filter: blur(0);
+  opacity: 1;
+}
+
+/* project image preview (desktop) */
+._prj-img {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+._prj-img.is-active {
+  opacity: 1;
+}
+
+/* mobile scroll highlight */
+._prj-lnk.blurry {
+  filter: blur(2px);
+  opacity: 0.4;
+}
+._prj-lnk.blurry.is-active {
+  filter: blur(0);
+  opacity: 1;
+}
+
+/* page wrapper — hidden during preloader, fades in after */
+.pg-wrp {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(20px);
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 600ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pg-wrp.revealed {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* grid view */
+._grid-item {
+  transition: all 0.3s ease;
+}
+._grid-item:hover {
+  filter: blur(2px);
+}
+
+/* gallery lightbox */
+._lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  cursor: pointer;
+}
+._lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
 }
