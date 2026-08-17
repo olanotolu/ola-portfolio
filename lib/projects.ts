@@ -7,7 +7,7 @@ export type Project = {
   color?: string;
 };
 
-// ponytail: single source of truth for all views (list/grid/gallery/project).
+// ponytail: single source of truth for the project list on the one-pager.
 // Categories match the original site exactly (Web, Branding, Branding + Web).
 // Image filenames mirror the Chrome "Save As" snapshot from emelecollab.com.
 export const projects: Project[] = [
@@ -38,5 +38,3 @@ export const projects: Project[] = [
   { slug: "sotogrande-life-experience", name: "Sotogrande Life Experience", image: "/projects/insta5-1024x1024.jpg", category: "Branding + Web", year: "2026" },
   { slug: "barbara-skrodzka", name: "Barbara Skrodzka", image: "/projects/BSK-1-842x1024.jpg", category: "Web", year: "2026" },
 ];
-
-export const bySlug = (slug: string) => projects.find((p) => p.slug === slug);

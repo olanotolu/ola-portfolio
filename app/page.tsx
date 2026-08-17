@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
 
-// ponytail: single page — Who? intro text + project list below.
-// Desktop (≥1024px): hover link → show image, blur others.
-// Mobile (<1024px): scroll → highlight nearest link.
+// ponytail: single page — Who? intro + project list below.
+// Desktop (≥1024px): hover name → show image, blur others.
+// Mobile (<1024px): scroll → highlight name nearest viewport center.
+// No project detail pages — names are plain text, not links.
 export default function Home() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [clones, setClones] = useState(0);
@@ -91,14 +91,13 @@ export default function Home() {
 
   const renderProject = (p: (typeof projects)[number], setIdx: number) => (
     <div key={p.slug}>
-      <Link
-        href={`/project/${p.slug}`}
+      <div
         data-slug={p.slug}
         style={p.color ? { color: p.color } : undefined}
-        className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150"
+        className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150 cursor-crosshair"
       >
         <span className="pointer-events-none">{p.name}</span>
-      </Link>
+      </div>
       <div
         className="_prj-img lg:pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
         data-for={p.slug}
@@ -136,13 +135,10 @@ export default function Home() {
         </h1>
         <div className="font-sc text-[15px] leading-relaxed space-y-6">
           <p>
-            The Who? page is our space for experiments — type studies, motion
-            sketches, interaction prototypes, and tools that may or may not
-            become real projects.
-          </p>
-          <p>
-            It&apos;s where we test ideas before they have a brief, and where
-            curiosity leads the process instead of a deadline.
+            Ola. is a creative studio specializing in branding, web design,
+            and web development. We work closely with agencies, businesses,
+            and individuals to create thoughtful and visually striking
+            digital experiences.
           </p>
         </div>
       </div>
@@ -150,7 +146,7 @@ export default function Home() {
       {/* Projects list */}
       <div
         ref={wrapRef}
-        className="_prjs-wrp pt-8 md:pt-7 _trns-blr"
+        className="_prjs-wrp pt-8 md:pt-7"
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
       >

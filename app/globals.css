@@ -53,12 +53,6 @@ a, button { cursor: crosshair; }
 .lnk-blr-hvr:hover {
   filter: blur(2px);
 }
-.lnk-blr-hvr-inner .inner {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.lnk-blr-hvr-inner:hover .inner {
-  filter: blur(2px);
-}
 
 /* project link hover: blur all, unblur the hovered one (desktop) */
 ._prjs-wrp.hovering ._prj-lnk {
@@ -99,22 +93,4 @@ a, button { cursor: crosshair; }
   opacity: 1;
   filter: blur(0);
   transform: translateY(0);
-}
-
-/* gallery lightbox */
-._lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  background: rgba(255,255,255,0.95);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  cursor: pointer;
-}
-._lightbox img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
 }
