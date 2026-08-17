@@ -97,6 +97,12 @@ export default function Home() {
       >
         <span className="pointer-events-none">{p.name}</span>
       </div>
+      {p.logo === "harvard" && (
+        <div className="flex justify-center mt-4 mb-6">
+          {/* ponytail: Harvard shield SVG from Wikimedia Commons */}
+          <img src="/harvard.svg" alt="Harvard University" className="h-[60px] w-auto md:h-[80px] opacity-80" />
+        </div>
+      )}
       <div
         className="_prj-img lg:pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
         data-for={p.slug}
@@ -138,6 +144,9 @@ export default function Home() {
             <a href="#projects" className="lnk-blr-hvr px-1 py-0.5">Projects</a>
             <a href="/research" className="lnk-blr-hvr px-1 py-0.5">Research</a>
             <a href="mailto:subxmii@gmail.com" className="lnk-blr-hvr px-1 py-0.5">Email</a>
+            <a href="https://www.linkedin.com/newsletters/in-depth-of-reason-7451106155629707264/" target="_blank" rel="noopener" className="lnk-blr-hvr px-1 py-0.5">
+              Newsletter <span className="text-gray-400 normal-case">(200+ subscribers)</span>
+            </a>
           </nav>
         </div>
 

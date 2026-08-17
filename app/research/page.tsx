@@ -41,14 +41,6 @@ const papers = [
   },
 ];
 
-const essays = [
-  { title: "Why Distance Should Become Irrelevant", year: "2026" },
-  { title: "The Autonomous General Manager", year: "2026" },
-  { title: "What Happens When Intelligence Becomes Cheap", year: "2026" },
-  { title: "The Economics of Space Logistics", year: "2026" },
-  { title: "Civilization as Software", year: "2026" },
-];
-
 export default function ResearchPage() {
   return (
     <div className="pt-20 px-6 md:px-10 py-24 md:py-36">
@@ -97,26 +89,6 @@ export default function ResearchPage() {
                   {paper.description}
                 </p>
               </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Essays */}
-        <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-6">
-          Writing
-        </h2>
-        <ul className="space-y-0">
-          {essays.map((essay) => (
-            <li
-              key={essay.title}
-              className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-8 border-b border-gray-200 py-5"
-            >
-              <h3 className="font-pr text-[20px] md:text-[26px] leading-[1.1]">
-                {essay.title}
-              </h3>
-              <span className="font-sc text-[12px] uppercase tracking-wider text-gray-500 whitespace-nowrap">
-                {essay.year}
-              </span>
             </li>
           ))}
         </ul>
