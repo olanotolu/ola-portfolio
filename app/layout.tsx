@@ -5,9 +5,9 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 
 export const metadata: Metadata = {
-  title: "Ola.",
+  title: "OlaOlu.",
   description:
-    "Ola. is an independent multidisciplinary designer specializing in digital experiences and interaction design.",
+    "OlaOlu. is an independent multidisciplinary designer specializing in digital experiences and interaction design.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -22,9 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link
               href="/"
               className="lnk-blr-hvr font-sc text-[15px]"
-              aria-label="Ola."
+              aria-label="OlaOlu."
             >
-              <span className="hidden sm:inline">Ola.</span>
+              <span className="hidden sm:inline">OlaOlu.</span>
             </Link>
           </div>
           {/* page content */}

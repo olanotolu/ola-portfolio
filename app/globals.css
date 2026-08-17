@@ -23,7 +23,7 @@
   --color-fg: #171717;
 }
 
-/* Ola. design system: white bg, near-black text, crosshair cursor,
+/* OlaOlu. design system: white bg, near-black text, crosshair cursor,
    blur-on-hover links, fixed header/footer, big serif project names. */
 html {
   background: var(--color-bg);

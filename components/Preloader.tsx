@@ -133,7 +133,7 @@ export function Preloader() {
       style={{ opacity: overlayOpacity, transitionTimingFunction: EASE_OUT }}
     >
       <div
-        className="font-sc text-[15px] text-white"
+        className="font-pr text-[20vw] text-white uppercase leading-[0.8] tracking-[-0.05em]"
         style={{
           opacity: textStyle.opacity,
           filter: textStyle.filter,
@@ -141,7 +141,7 @@ export function Preloader() {
           transition: `opacity ${T}ms ${EASE_OUT}, filter ${T}ms ${EASE_OUT}, transform ${T}ms ${EASE_OUT}`,
         }}
       >
-        Ola.
+        OlaOlu.
       </div>
       <div
         className="fixed bottom-3 right-3"
@@ -161,7 +161,7 @@ export function Preloader() {
             {/* ponytail: plain img instead of next/image — tiny thumbnails, matches original markup */}
             <img
               src={src}
-              alt="Ola. project preview"
+              alt="OlaOlu. project preview"
               className="w-full h-full"
               loading="eager"
             />

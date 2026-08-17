@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
 
-// ponytail: single page — editorial Ola. hero, about copy, then project list.
+// ponytail: single page — editorial OlaOlu. hero, about copy, then project list.
 // Desktop (≥1024px): hover name → show image, blur others.
 // Mobile (<1024px): scroll → highlight name nearest viewport center.
 // No project detail pages — names are plain text, not links.
@@ -152,10 +152,10 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Oversized Ola. anchored at bottom */}
+        {/* Oversized OlaOlu. anchored at bottom */}
         <h1 className="font-pr uppercase leading-[0.7] tracking-[-0.08em] text-center text-[34vw] md:text-[28vw] lg:text-[26vw] select-none -mb-[2vw]">
-          <span aria-hidden="true">Ola.</span>
-          <span className="sr-only">Ola.</span>
+          <span aria-hidden="true">OlaOlu.</span>
+          <span className="sr-only">OlaOlu.</span>
         </h1>
       </section>
 
@@ -166,7 +166,7 @@ export default function Home() {
             About
           </h2>
           <p className="font-sc text-[15px] leading-relaxed">
-            Ola. is a creative studio specializing in branding, web design,
+            OlaOlu. is a creative studio specializing in branding, web design,
             and web development. We work closely with agencies, businesses,
             and individuals to create thoughtful and visually striking digital
             experiences.
