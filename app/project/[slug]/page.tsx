@@ -40,7 +40,7 @@ export default async function ProjectPage({
         <div className="max-w-2xl font-sc text-[15px] leading-relaxed space-y-6">
           <p>
             {project.name} is a {project.category.toLowerCase()} project by
-            Emele Collab. This page is a structural placeholder — the original
+            Ola. This page is a structural placeholder — the original
             site has rich per-project content that would be sourced from a CMS.
           </p>
         </div>

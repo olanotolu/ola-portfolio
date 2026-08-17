@@ -6,9 +6,9 @@ import { Preloader } from "@/components/Preloader";
 import { PageTransition } from "@/components/PageTransition";
 
 export const metadata: Metadata = {
-  title: "Emele Collab — Creative Studio",
+  title: "Ola.",
   description:
-    "Emele Collab is a creative studio founded by Matt Imling and Lidia Conde, specializing in branding, web design, and web development. We work closely with agencies, businesses, and individuals to create thoughtful and visually striking digital experiences.",
+    "Ola. is a creative studio founded by Matt Imling and Lidia Conde, specializing in branding, web design, and web development. We work closely with agencies, businesses, and individuals to create thoughtful and visually striking digital experiences.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -23,9 +23,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Link
               href="/"
               className="lnk-blr-hvr font-sc text-[15px]"
-              aria-label="Emele Collab"
+              aria-label="Ola."
             >
-              <span className="hidden sm:inline">Emele Collab</span>
+              <span className="hidden sm:inline">Ola.</span>
             </Link>
           </div>
           <div className="flex gap-x-[10px] fixed top-2 right-3 z-20">

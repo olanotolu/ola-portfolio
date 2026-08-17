@@ -6,7 +6,7 @@ export default function StudioPage() {
       </h1>
       <div className="font-sc text-[15px] leading-relaxed space-y-6">
         <p>
-          Emele Collab is a creative studio founded by Matt Imling and Lidia
+          Ola. is a creative studio founded by Matt Imling and Lidia
           Conde, specializing in branding, web design, and web development.
         </p>
         <p>
