@@ -4,17 +4,18 @@ export type Project = {
   image: string;
   category: string;
   year: string;
+  color?: string;
 };
 
 // ponytail: single source of truth for all views (list/grid/gallery/project).
 // Categories match the original site exactly (Web, Branding, Branding + Web).
 // Image filenames mirror the Chrome "Save As" snapshot from emelecollab.com.
 export const projects: Project[] = [
-  { slug: "xanvier-allison", name: "Xanvier Allison", image: "/projects/XA-Featured-image.jpg", category: "Web", year: "2026" },
-  { slug: "hilary-eden", name: "Hilary Eden", image: "/projects/HE-web-content-01-819x1024.jpg", category: "Web", year: "2026" },
-  { slug: "jump-factory", name: "Jump Factory", image: "/projects/JF-01-1024x692.jpg", category: "Branding + Web", year: "2026" },
-  { slug: "adcker", name: "Adcker", image: "/projects/ADCKR-01-1024x900.jpg", category: "Web", year: "2026" },
-  { slug: "jochi-labs", name: "Jochi Labs", image: "/projects/JL-03-1024x640.jpg", category: "Branding", year: "2026" },
+  { slug: "xanvier-allison", name: "Concya", image: "/projects/XA-Featured-image.jpg", category: "Web", year: "2026" },
+  { slug: "hilary-eden", name: "Unbehalf", image: "/projects/HE-web-content-01-819x1024.jpg", category: "Web", year: "2026" },
+  { slug: "jump-factory", name: "Ontitled", image: "/projects/JF-01-1024x692.jpg", category: "Branding + Web", year: "2026" },
+  { slug: "adcker", name: "Omposition", image: "/projects/ADCKR-01-1024x900.jpg", category: "Web", year: "2026" },
+  { slug: "jochi-labs", name: "Education", image: "/projects/JL-03-1024x640.jpg", category: "Branding", year: "2026", color: "#00ff00" },
   { slug: "sonder", name: "Sonder", image: "/projects/SNDR-12-931x1024.jpg", category: "Web", year: "2026" },
   { slug: "marianna-von-fedak", name: "Marianna von Fedak", image: "/projects/MVF-02-797x1024.jpg", category: "Branding + Web", year: "2026" },
   { slug: "farah-gorayeb", name: "Farah Gorayeb", image: "/projects/FG-00-1024x1013.jpg", category: "Branding + Web", year: "2026" },

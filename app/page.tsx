@@ -92,34 +92,50 @@ export default function Home() {
   }
 
   // Render project list N times (original + clones for infinite scroll)
+  // First 4 = "Projects." (company work), rest below a divider.
+  const featured = projects.slice(0, 4);
+  const rest = projects.slice(4);
+
+  const renderProject = (p: (typeof projects)[number], setIdx: number) => (
+    <div key={p.slug}>
+      <Link
+        href={`/project/${p.slug}`}
+        data-slug={p.slug}
+        style={p.color ? { color: p.color } : undefined}
+        className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150"
+      >
+        <span className="pointer-events-none">{p.name}</span>
+      </Link>
+      <div
+        className="_prj-img lg:pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
+        data-for={p.slug}
+      >
+        <Image
+          src={p.image}
+          alt={p.name}
+          width={1024}
+          height={1024}
+          className="w-full mb-7"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
+          priority={setIdx === 0 && projects.findIndex((x) => x.slug === p.slug) < 3}
+        />
+      </div>
+    </div>
+  );
+
   const renderProjects = () =>
     Array.from({ length: clones + 1 }).map((_, setIdx) => (
       <div key={setIdx} className="flex flex-col items-center _prjs-cnt">
-        {projects.map((p) => (
-          <div key={p.slug}>
-            <Link
-              href={`/project/${p.slug}`}
-              data-slug={p.slug}
-              className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150"
-            >
-              <span className="pointer-events-none">{p.name}</span>
-            </Link>
-            <div
-              className="_prj-img lg:pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
-              data-for={p.slug}
-            >
-              <Image
-                src={p.image}
-                alt={p.name}
-                width={1024}
-                height={1024}
-                className="w-full mb-7"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
-                priority={setIdx === 0 && projects.findIndex((x) => x.slug === p.slug) < 3}
-              />
-            </div>
+        {setIdx === 0 && (
+          <div className="font-sc text-[11px] uppercase tracking-[0.3em] text-gray-300 mb-4 md:mb-6 mt-1">
+            Projects
           </div>
-        ))}
+        )}
+        {featured.map((p) => renderProject(p, setIdx))}
+        {setIdx === 0 && (
+          <div className="w-full max-w-[200px] h-px bg-gray-100 my-10 md:my-16" />
+        )}
+        {rest.map((p) => renderProject(p, setIdx))}
       </div>
     ));
 

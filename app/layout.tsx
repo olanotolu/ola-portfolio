@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               Studio
             </Link>
             <Link href="/lab" className="lnk-blr-hvr font-sc text-[15px]">
-              Lab
+              Who?
             </Link>
           </div>
           {/* page content + footer — both animate during transitions (._trns-blr) */}
