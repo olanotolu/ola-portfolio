@@ -34,10 +34,18 @@ export function Preloader() {
   const EASE_IN = "cubic-bezier(0.55, 0, 1, 0.45)"; // easeInCubic
 
   useEffect(() => {
+    // Skip preloader if already shown this session — instant page reveal on navigation.
+    if (sessionStorage.getItem("ola-preloaded")) {
+      document.getElementById("pg-wrp")?.classList.add("revealed");
+      setRemoved(true);
+      return;
+    }
+
     // Reduced motion: skip the entire timeline, reveal immediately.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       document.getElementById("pg-wrp")?.classList.add("revealed");
       setRemoved(true);
+      sessionStorage.setItem("ola-preloaded", "1");
       return;
     }
 
@@ -116,6 +124,7 @@ export function Preloader() {
     timers.push(
       setTimeout(() => {
         setRemoved(true);
+        sessionStorage.setItem("ola-preloaded", "1");
       }, 4500)
     );
 

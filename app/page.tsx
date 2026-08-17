@@ -125,20 +125,6 @@ export default function Home() {
       </div>
     ));
 
-  const principles = [
-    "Constraints are opportunities.",
-    "Intelligence should become abundant.",
-    "Physical infrastructure should become programmable.",
-    "Technology should increase human agency.",
-    "Make more futures possible.",
-  ];
-
-  const nowItems = [
-    "Building Concya",
-    "Exploring autonomous infrastructure",
-    "Researching space logistics",
-  ];
-
   return (
     <>
       {/* ── Hero ── */}
@@ -155,9 +141,12 @@ export default function Home() {
           </nav>
         </div>
 
-        <div className="flex-1 flex flex-col justify-center items-center px-3 md:px-7">
-          <p className="font-pr text-[18px] leading-[1] max-w-[280px] md:text-[24px] md:max-w-[400px] text-center">
-            Independent multidisciplinary designer, specializing in digital experiences and interaction design.
+        <div className="flex-1 flex flex-col justify-center items-center px-3 md:px-7 gap-6">
+          <p className="font-pr text-[12px] italic leading-[1.1] max-w-[220px] md:max-w-[260px] text-center">
+            &ldquo;Build until the impossible becomes ordinary.&rdquo;
+          </p>
+          <p className="font-pr text-[18px] leading-[1.1] max-w-[340px] md:text-[22px] md:max-w-[520px] text-center">
+            I build toward futures that look crazy until they become inevitable. I&rsquo;m interested in the convergence of technologies that turn distant ideas into near-term realities, and in building the systems that make those realities possible.
           </p>
         </div>
 
@@ -174,36 +163,11 @@ export default function Home() {
             About
           </h2>
 
-          <p className="font-sc text-[17px] md:text-[19px] leading-relaxed mb-16">
+          <p className="font-sc text-[17px] md:text-[19px] leading-relaxed">
             I build at the edge of software, intelligence, and physical
             infrastructure. I&rsquo;m interested in technologies that remove
             fundamental constraints and expand what civilization can do.
           </p>
-
-          {/* Now */}
-          <div className="mb-16">
-            <h3 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-4">Now</h3>
-            <ul className="space-y-2 font-sc text-[15px]">
-              {nowItems.map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Principles */}
-          <div>
-            <h3 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-4">Principles</h3>
-            <ul className="space-y-3">
-              {principles.map((p) => (
-                <li key={p} className="font-pr text-[18px] md:text-[22px] leading-[1.1]">
-                  {p}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 
