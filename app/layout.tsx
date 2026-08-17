@@ -3,7 +3,6 @@ import Link from "next/link";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
-import { PageTransition } from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Ola.",
@@ -18,7 +17,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Preloader />
         <SmoothScroll />
         <div className="pg-wrp relative" id="pg-wrp">
-          {/* fixed header — stays constant during page transitions */}
+          {/* fixed header — just the logo */}
           <div className="fixed top-2 left-3 z-20">
             <Link
               href="/"
@@ -28,32 +27,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <span className="hidden sm:inline">Ola.</span>
             </Link>
           </div>
-          <div className="flex gap-x-[10px] fixed top-2 right-3 z-20">
-            <Link href="/studio" className="lnk-blr-hvr font-sc text-[15px]">
-              Studio
-            </Link>
-            <Link href="/lab" className="lnk-blr-hvr font-sc text-[15px]">
-              Who?
-            </Link>
+          {/* page content */}
+          <main className="relative">{children}</main>
+          {/* fixed footer */}
+          <div className="fixed bottom-2 left-3 z-20 font-sc text-[15px]">
+            Creative Studio
           </div>
-          {/* page content + footer — both animate during transitions (._trns-blr) */}
-          <PageTransition>
-            <main className="relative">{children}</main>
-            {/* fixed footer */}
-            <div className="fixed bottom-2 left-3 z-20 font-sc text-[15px]">
-              Creative Studio
-            </div>
-            <div className="fixed bottom-2 right-3 z-20 font-sc text-[15px]">
-              <a
-                href="mailto:hi@emelecollab.com?subject=Hey%20for%20Emele%20Collab&body=Hey%20Matt%20%26%20Lidia%2C%20..."
-                className="lnk-blr-hvr"
-                target="_blank"
-                rel="noopener"
-              >
-                Email Us
-              </a>
-            </div>
-          </PageTransition>
+          <div className="fixed bottom-2 right-3 z-20 font-sc text-[15px]">
+            <a
+              href="mailto:hi@emelecollab.com?subject=Hey%20for%20Emele%20Collab&body=Hey%20Matt%20%26%20Lidia%2C%20..."
+              className="lnk-blr-hvr"
+              target="_blank"
+              rel="noopener"
+            >
+              Email Us
+            </a>
+          </div>
         </div>
       </body>
     </html>

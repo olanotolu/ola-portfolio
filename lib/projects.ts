@@ -19,7 +19,7 @@ export const projects: Project[] = [
   { slug: "sonder", name: "Sonder", image: "/projects/SNDR-12-931x1024.jpg", category: "Web", year: "2026" },
   { slug: "marianna-von-fedak", name: "Marianna von Fedak", image: "/projects/MVF-02-797x1024.jpg", category: "Branding + Web", year: "2026" },
   { slug: "farah-gorayeb", name: "Farah Gorayeb", image: "/projects/FG-00-1024x1013.jpg", category: "Branding + Web", year: "2026" },
-  { slug: "newol", name: "Newol", image: "/projects/NWL-01-1-1024x1024.jpg", category: "Branding", year: "2026" },
+  { slug: "newol", name: "Research", image: "/projects/NWL-01-1-1024x1024.jpg", category: "Branding", year: "2026", color: "#ff0000" },
   { slug: "the-cortege", name: "The Cortège", image: "/projects/TC-02-914x1024.jpg", category: "Web", year: "2026" },
   { slug: "future-agency", name: "Future Agency", image: "/projects/FA-02-819x1024.jpg", category: "Web", year: "2026" },
   { slug: "salmara-swimwear", name: "Salmara Swimwear", image: "/projects/SS-03-819x1024.jpg", category: "Branding", year: "2026" },

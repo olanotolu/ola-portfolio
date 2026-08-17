@@ -4,17 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
-import { ViewSwitcher } from "@/components/ViewSwitcher";
 
-// ponytail: replicates homeProjectHover.js (desktop) + homeInfiniteScroll.js (mobile).
-// Desktop (≥1024px): hover link → show its image, blur other links.
-// Mobile (<1024px): scroll → highlight link nearest viewport center, show its image.
-// Infinite scroll: clone project list when last item enters viewport.
+// ponytail: single page — Who? intro text + project list below.
+// Desktop (≥1024px): hover link → show image, blur others.
+// Mobile (<1024px): scroll → highlight nearest link.
 export default function Home() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [clones, setClones] = useState(0);
 
-  // Mobile scroll highlight — breakpoint is lg (1024px), not md.
   useEffect(() => {
     function onScroll() {
       if (window.matchMedia("(min-width: 1024px)").matches) return;
@@ -50,7 +47,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [clones]);
 
-  // Infinite scroll — clone when last item nears viewport bottom.
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
@@ -67,7 +63,6 @@ export default function Home() {
     return () => observer.disconnect();
   }, [clones]);
 
-  // Desktop hover handlers
   function onMouseOver(e: React.MouseEvent) {
     if (!window.matchMedia("(min-width: 1024px)").matches) return;
     const target = e.target as HTMLElement;
@@ -91,8 +86,6 @@ export default function Home() {
     wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
   }
 
-  // Render project list N times (original + clones for infinite scroll)
-  // First 4 = "Projects." (company work), rest below a divider.
   const featured = projects.slice(0, 4);
   const rest = projects.slice(4);
 
@@ -126,11 +119,6 @@ export default function Home() {
   const renderProjects = () =>
     Array.from({ length: clones + 1 }).map((_, setIdx) => (
       <div key={setIdx} className="flex flex-col items-center _prjs-cnt">
-        {setIdx === 0 && (
-          <div className="font-sc text-[11px] uppercase tracking-[0.3em] text-gray-300 mb-4 md:mb-6 mt-1">
-            Projects
-          </div>
-        )}
         {featured.map((p) => renderProject(p, setIdx))}
         {setIdx === 0 && (
           <div className="w-full max-w-[200px] h-px bg-gray-100 my-10 md:my-16" />
@@ -141,7 +129,25 @@ export default function Home() {
 
   return (
     <>
-      <ViewSwitcher />
+      {/* Who? intro */}
+      <div className="pt-20 px-6 md:px-10 pb-16 max-w-3xl mx-auto">
+        <h1 className="font-pr uppercase text-[calc(1rem+4vw)] leading-[0.9] mb-8">
+          Who?
+        </h1>
+        <div className="font-sc text-[15px] leading-relaxed space-y-6">
+          <p>
+            The Who? page is our space for experiments — type studies, motion
+            sketches, interaction prototypes, and tools that may or may not
+            become real projects.
+          </p>
+          <p>
+            It&apos;s where we test ideas before they have a brief, and where
+            curiosity leads the process instead of a deadline.
+          </p>
+        </div>
+      </div>
+
+      {/* Projects list */}
       <div
         ref={wrapRef}
         className="_prjs-wrp pt-8 md:pt-7 _trns-blr"
