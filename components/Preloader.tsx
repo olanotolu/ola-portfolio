@@ -34,6 +34,13 @@ export function Preloader() {
   const EASE_IN = "cubic-bezier(0.55, 0, 1, 0.45)"; // easeInCubic
 
   useEffect(() => {
+    // Reduced motion: skip the entire timeline, reveal immediately.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.getElementById("pg-wrp")?.classList.add("revealed");
+      setRemoved(true);
+      return;
+    }
+
     // t=0: show overlay immediately (matches prldr.style.opacity = '1')
     setOverlayOpacity(1);
 
@@ -154,7 +161,7 @@ export function Preloader() {
             {/* ponytail: plain img instead of next/image — tiny thumbnails, matches original markup */}
             <img
               src={src}
-              alt=""
+              alt="Ola. project preview"
               className="w-full h-full"
               loading="eager"
             />

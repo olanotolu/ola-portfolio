@@ -94,3 +94,41 @@ a, button { cursor: crosshair; }
   filter: blur(0);
   transform: translateY(0);
 }
+
+/* screen-reader-only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* keyboard focus indicator */
+a:focus-visible, button:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 2px;
+}
+
+/* reduced motion — disable blur, transforms, and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .lnk-blr-hvr:hover,
+  ._prjs-wrp.hovering ._prj-lnk,
+  ._prj-lnk.blurry {
+    filter: none !important;
+  }
+  .pg-wrp {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
