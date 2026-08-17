@@ -5,9 +5,9 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { Preloader } from "@/components/Preloader";
 
 export const metadata: Metadata = {
-  title: "OlaOlu.",
+  title: "Ola Aduloju",
   description:
-    "OlaOlu. is an independent multidisciplinary designer specializing in digital experiences and interaction design.",
+    "Increasing the surface area of possibility. I build at the edge of software, intelligence, and physical infrastructure.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
