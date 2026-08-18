@@ -14,9 +14,7 @@ import { scrollToHash } from "@/lib/lenis";
 // while the text streams in via the typewriter.
 type QuipSeg = { type: "text"; value: string } | { type: "flag" } | { type: "logo" };
 const QUIP_SEGS: QuipSeg[] = [
-  { type: "text", value: "currently: " },
-  { type: "text", value: "nigerian" },
-  { type: "text", value: " mum fighting me for leaving " },
+  { type: "text", value: "currently: building cool shit so my nigerian mum can forget i left " },
   { type: "logo" },
 ];
 const QUIP_TOTAL = QUIP_SEGS.reduce((n, s) => n + (s.type === "text" ? s.value.length : 0), 0);
@@ -241,7 +239,7 @@ export default function Home() {
               NYC {nycTime}
             </p>
             <p
-              aria-label="currently: nigerian mum fighting me for leaving harvard"
+              aria-label="currently: building cool shit so my nigerian mum can forget i left harvard"
               className="font-pr italic text-[15px] md:text-[16px] text-gray-600 mt-1.5"
             >
               {(() => {
