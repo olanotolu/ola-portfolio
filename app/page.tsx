@@ -10,6 +10,24 @@ import { projects } from "@/lib/projects";
 export default function Home() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [clones, setClones] = useState(0);
+  const [nycTime, setNycTime] = useState("");
+
+  useEffect(() => {
+    function update() {
+      setNycTime(
+        new Date().toLocaleTimeString("en-US", {
+          timeZone: "America/New_York",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
+    }
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     function onScroll() {
@@ -136,13 +154,19 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="ola-hero relative min-h-[100svh] overflow-hidden flex flex-col">
         <div className="flex items-start justify-between px-3 pt-6 md:px-7 md:pt-8">
-          <p className="font-sc text-[10px] uppercase tracking-[0.08em] text-gray-500 max-w-[40vw] md:max-w-none">
-            Increasing the surface area of possibility
-          </p>
+          <div className="flex flex-col gap-1">
+            <p className="font-sc text-[10px] uppercase tracking-[0.08em] text-gray-500 max-w-[40vw] md:max-w-none">
+              Increasing the surface area of possibility
+            </p>
+            <p className="font-sc text-[10px] uppercase tracking-[0.08em] text-gray-400 tabular-nums">
+              NYC {nycTime}
+            </p>
+          </div>
           <nav aria-label="Site" className="flex flex-col items-end gap-0.5 font-sc text-[10px] uppercase leading-[1.4]">
             <a href="#about" className="lnk-blr-hvr px-1 py-0.5">About</a>
             <a href="#projects" className="lnk-blr-hvr px-1 py-0.5">Projects</a>
             <a href="/research" className="lnk-blr-hvr px-1 py-0.5">Research</a>
+            <a href="/writing" className="lnk-blr-hvr px-1 py-0.5">Writing</a>
             <a href="mailto:subxmii@gmail.com" className="lnk-blr-hvr px-1 py-0.5">Email</a>
             <a href="https://www.linkedin.com/newsletters/in-depth-of-reason-7451106155629707264/" target="_blank" rel="noopener" className="lnk-blr-hvr px-1 py-0.5">
               Newsletter <span className="text-gray-400 normal-case">(200+ subscribers)</span>
