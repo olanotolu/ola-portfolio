@@ -15,7 +15,7 @@ import { scrollToHash } from "@/lib/lenis";
 type QuipSeg = { type: "text"; value: string } | { type: "flag" } | { type: "logo" };
 const QUIP_SEGS: QuipSeg[] = [
   { type: "text", value: "currently: " },
-  { type: "flag" },
+  { type: "text", value: "nigerian" },
   { type: "text", value: " mum fighting me for leaving " },
   { type: "logo" },
 ];
