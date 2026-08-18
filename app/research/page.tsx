@@ -24,7 +24,7 @@ const papers = [
     title: "The Emergence of Machine Labor Markets",
     description:
       "An adversarial investigation into whether AI-completed work will become standardized and financialized like oil, electricity, and cloud compute.",
-    url: "https://www.uninitial.com/markets",
+    url: "/papers/Machine_Labor_Markets.pdf",
     year: "2026",
   },
   {
