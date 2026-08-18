@@ -114,6 +114,12 @@ a:focus-visible, button:focus-visible {
   outline-offset: 2px;
 }
 
+/* text selection in the ink language */
+::selection {
+  background: #171717;
+  color: #ffffff;
+}
+
 /* reduced motion — disable blur, transforms, and transitions */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -123,7 +129,8 @@ a:focus-visible, button:focus-visible {
   }
   .lnk-blr-hvr:hover,
   ._prjs-wrp.hovering ._prj-lnk,
-  ._prj-lnk.blurry {
+  ._prj-lnk.blurry,
+  .nf-404 {
     filter: none !important;
   }
   .pg-wrp {

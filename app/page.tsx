@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
+import { SiteFooter } from "@/components/SiteFooter";
 
 // ponytail: personal research institution — thesis, about, projects, research, writing, now.
 // Desktop (≥1024px): hover name → show image, blur others.
@@ -55,7 +56,7 @@ export default function Home() {
       if (closest) {
         const c = closest as HTMLElement;
         c.classList.add("blurry", "is-active");
-        const img = c.nextElementSibling;
+        const img = wrap.querySelector(`._prj-img[data-for="${c.dataset.slug}"]`);
         img?.classList.add("is-active");
       }
     }
@@ -106,37 +107,52 @@ export default function Home() {
   const featured = projects.slice(0, 4);
   const rest = projects.slice(4);
 
-  const renderProject = (p: (typeof projects)[number], setIdx: number) => (
-    <div key={p.slug}>
-      <div
-        data-slug={p.slug}
-        style={p.color ? { color: p.color } : undefined}
-        className="_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150 cursor-crosshair"
-      >
-        <span className="pointer-events-none">{p.name}</span>
-      </div>
-      {p.logo === "harvard" && (
-        <div className="flex justify-center mt-4 mb-6">
-          {/* ponytail: Harvard shield SVG from Wikimedia Commons */}
-          <img src="/harvard.svg" alt="Harvard University" className="h-[60px] w-auto md:h-[80px] opacity-80" />
+  const renderProject = (p: (typeof projects)[number], setIdx: number) => {
+    const style = p.color ? { color: p.color } : undefined;
+    const cls =
+      "_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150 cursor-crosshair";
+    const nameEl = <span className="pointer-events-none">{p.name}</span>;
+    return (
+      <div key={p.slug}>
+        {p.url ? (
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-slug={p.slug}
+            style={style}
+            className={cls}
+          >
+            {nameEl}
+          </a>
+        ) : (
+          <div data-slug={p.slug} style={style} className={cls}>
+            {nameEl}
+          </div>
+        )}
+        {p.logo === "harvard" && (
+          <div className="flex justify-center mt-4 mb-6">
+            {/* ponytail: Harvard shield SVG from Wikimedia Commons */}
+            <img src="/harvard.svg" alt="Harvard University" className="h-[60px] w-auto md:h-[80px] opacity-80" />
+          </div>
+        )}
+        <div
+          className="_prj-img pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
+          data-for={p.slug}
+        >
+          <Image
+            src={p.image}
+            alt={p.name}
+            width={1024}
+            height={1024}
+            className="w-full mb-7"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
+            priority={setIdx === 0 && projects.findIndex((x) => x.slug === p.slug) < 3}
+          />
         </div>
-      )}
-      <div
-        className="_prj-img lg:pointer-events-none fixed bottom-2 right-3 z-10 invisible w-full max-w-[50vw] sm:max-w-[40vw] md:max-w-[30vw] lg:max-w-[25vw] xl:max-w-[20vw] [&.is-active]:visible"
-        data-for={p.slug}
-      >
-        <Image
-          src={p.image}
-          alt={p.name}
-          width={1024}
-          height={1024}
-          className="w-full mb-7"
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 30vw, 20vw"
-          priority={setIdx === 0 && projects.findIndex((x) => x.slug === p.slug) < 3}
-        />
       </div>
-    </div>
-  );
+    );
+  };
 
   const renderProjects = () =>
     Array.from({ length: clones + 1 }).map((_, setIdx) => (
@@ -155,20 +171,20 @@ export default function Home() {
       <section className="ola-hero relative min-h-[100svh] overflow-hidden flex flex-col">
         <div className="flex items-start justify-between px-3 pt-6 md:px-7 md:pt-8">
           <div className="flex flex-col gap-1">
-            <p className="font-sc text-[10px] uppercase tracking-[0.08em] text-gray-500 max-w-[40vw] md:max-w-none">
+            <p className="font-sc text-[11px] uppercase tracking-[0.08em] text-gray-500 max-w-[40vw] md:max-w-none">
               Increasing the surface area of possibility
             </p>
-            <p className="font-sc text-[10px] uppercase tracking-[0.08em] text-gray-400 tabular-nums">
+            <p className="font-sc text-[11px] uppercase tracking-[0.08em] text-gray-400 tabular-nums">
               NYC {nycTime}
             </p>
           </div>
-          <nav aria-label="Site" className="flex flex-col items-end gap-0.5 font-sc text-[10px] uppercase leading-[1.4]">
-            <a href="#about" className="lnk-blr-hvr px-1 py-0.5">About</a>
-            <a href="#projects" className="lnk-blr-hvr px-1 py-0.5">Projects</a>
-            <a href="/research" className="lnk-blr-hvr px-1 py-0.5">Research</a>
-            <a href="/writing" className="lnk-blr-hvr px-1 py-0.5">Writing</a>
-            <a href="mailto:subxmii@gmail.com" className="lnk-blr-hvr px-1 py-0.5">Email</a>
-            <a href="https://www.linkedin.com/newsletters/in-depth-of-reason-7451106155629707264/" target="_blank" rel="noopener" className="lnk-blr-hvr px-1 py-0.5">
+          <nav aria-label="Site" className="flex flex-col items-end gap-0.5 font-sc text-[11px] uppercase leading-[1.4]">
+            <a href="#about" className="lnk-blr-hvr px-1.5 py-1">About</a>
+            <a href="#projects" className="lnk-blr-hvr px-1.5 py-1">Projects</a>
+            <a href="/research" className="lnk-blr-hvr px-1.5 py-1">Research</a>
+            <a href="/writing" className="lnk-blr-hvr px-1.5 py-1">Writing</a>
+            <a href="mailto:subxmii@gmail.com" className="lnk-blr-hvr px-1.5 py-1">Email</a>
+            <a href="https://www.linkedin.com/newsletters/in-depth-of-reason-7451106155629707264/" target="_blank" rel="noopener" className="lnk-blr-hvr px-1.5 py-1">
               Newsletter <span className="text-gray-400 normal-case">(200+ subscribers)</span>
             </a>
           </nav>
@@ -218,10 +234,7 @@ export default function Home() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className="flex justify-between px-3 py-8 font-sc text-[15px] md:px-7">
-        <span>Ola Aduloju</span>
-        <a href="mailto:subxmii@gmail.com" className="lnk-blr-hvr">Email</a>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

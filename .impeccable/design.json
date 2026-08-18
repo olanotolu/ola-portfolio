@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-18T00:00:00Z",
+  "title": "Design System: OlaOlu. — Personal Research Institution",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Ink", "canonical": "#171717", "tonalRamp": ["#0a0a0a", "#111111", "#171717", "#2b2b2b", "#444444", "#6b6b6b", "#a3a3a3", "#e5e5e5"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#ffffff", "tonalRamp": ["#e5e5e5", "#ededed", "#f5f5f5", "#fafafa", "#fcfcfc", "#fefefe", "#ffffff", "#ffffff"] },
+      "soft-ink": { "role": "neutral", "displayName": "Soft Ink", "canonical": "#4b5563", "tonalRamp": ["#1f2937", "#374151", "#4b5563", "#6b7280", "#9ca3af", "#c3c9d1", "#e5e7eb", "#f3f4f6"] },
+      "muted-ink": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#737373", "tonalRamp": ["#262626", "#404040", "#525252", "#737373", "#a3a3a3", "#d4d4d4", "#e5e5e5", "#f5f5f5"] },
+      "dim-ink": { "role": "neutral", "displayName": "Dim Ink", "canonical": "#9ca3af", "tonalRamp": ["#374151", "#4b5563", "#6b7280", "#9ca3af", "#c3c9d1", "#e5e7eb", "#f3f4f6", "#fafafa"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#e5e7eb", "tonalRamp": ["#9ca3af", "#b3b8c0", "#c3c9d1", "#d1d5db", "#e5e7eb", "#eceef0", "#f3f4f6", "#fafafa"] },
+      "void": { "role": "neutral", "displayName": "Void", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#2b2b2b", "#3d3d3d", "#525252", "#6b6b6b"] },
+      "signal-green": { "role": "tertiary", "displayName": "Signal Green", "canonical": "#00ff00", "tonalRamp": ["#004d00", "#008000", "#00b300", "#00e600", "#00ff00", "#66ff66", "#b3ffb3", "#e6ffe6"] },
+      "signal-red": { "role": "tertiary", "displayName": "Signal Red", "canonical": "#ff0000", "tonalRamp": ["#4d0000", "#800000", "#b30000", "#e60000", "#ff0000", "#ff6666", "#ffb3b3", "#ffe6e6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Monument Serif", "purpose": "Hero wordmark and project names only. Uppercase, tight tracking." },
+      "body": { "displayName": "Placard Sans", "purpose": "About copy, descriptions, footers." },
+      "label": { "displayName": "Meta Label", "purpose": "Nav, eyebrows, years. Uppercase, letterspaced." }
+    },
+    "motion": [
+      { "name": "ease-out-cubic", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "All reveals and the preloader bloom." },
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Blur-on-hover transitions, 300ms." },
+      { "name": "ease-snap", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Project hover snap, 150ms." },
+      { "name": "smooth-scroll", "value": "1.2s lenis", "purpose": "Page scroll easing." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Uppercase 10px sans wayfinding link; blurs on hover.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\">Research</a>",
+      "css": ".ds-nav-link { font-family: 'sc', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #171717; text-decoration: none; padding: 4px 8px; transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: crosshair; } .ds-nav-link:hover { filter: blur(2px); } .ds-nav-link:focus-visible { outline: 2px solid #171717; outline-offset: 2px; }"
+    },
+    {
+      "name": "Project Link",
+      "kind": "custom",
+      "refersTo": "project-link",
+      "description": "The signature monument: giant serif wordmark, siblings blur on hover.",
+      "html": "<a class=\"ds-prj-link\" href=\"https://www.concya.com\" target=\"_blank\" rel=\"noopener noreferrer\"><span>Concya</span></a>",
+      "css": ".ds-prj-link { display: block; font-family: 'pr', serif; font-size: clamp(1rem, 1rem + 6vw, 7rem); line-height: 0.8; letter-spacing: -0.08em; text-transform: uppercase; color: #171717; text-align: center; text-decoration: none; cursor: crosshair; transition: filter 0.15s cubic-bezier(0.16, 1, 0.3, 1); } .ds-prj-link:hover { filter: blur(0); } .ds-prj-link:focus-visible { outline: 2px solid #171717; outline-offset: 2px; } .ds-prj-siblings { filter: blur(2px); }"
+    },
+    {
+      "name": "Paper List Item",
+      "kind": "custom",
+      "refersTo": "paper-link",
+      "description": "Full-row hairline link: serif title, right-aligned year, soft-ink description.",
+      "html": "<a class=\"ds-paper\" href=\"#\"><div class=\"ds-paper-head\"><span class=\"ds-paper-title\">World Models for Hospitality</span><span class=\"ds-paper-year\">2026</span></div><p class=\"ds-paper-desc\">A research agenda for agentic venue operations.</p></a>",
+      "css": ".ds-paper { display: block; padding: 24px 0; border-bottom: 1px solid #e5e7eb; text-decoration: none; transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: crosshair; } .ds-paper:hover { filter: blur(2px); } .ds-paper-head { display: flex; justify-content: space-between; align-items: baseline; gap: 32px; margin-bottom: 8px; } .ds-paper-title { font-family: 'pr', serif; font-size: 20px; line-height: 1.1; color: #171717; } .ds-paper-year { font-family: 'sc', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #737373; white-space: nowrap; } .ds-paper-desc { font-family: 'sc', sans-serif; font-size: 14px; line-height: 1.6; color: #4b5563; max-width: 672px; margin: 0; }"
+    },
+    {
+      "name": "Logo",
+      "kind": "nav",
+      "refersTo": "logo-link",
+      "description": "Fixed top-left wordmark with the period; blurs on hover.",
+      "html": "<a class=\"ds-logo\" href=\"/\">OlaOlu.</a>",
+      "css": ".ds-logo { font-family: 'sc', sans-serif; font-size: 15px; color: #171717; text-decoration: none; transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: crosshair; } .ds-logo:hover { filter: blur(2px); }"
+    },
+    {
+      "name": "Footer Link",
+      "kind": "nav",
+      "refersTo": "footer-link",
+      "description": "15px sans footer link; blurs on hover.",
+      "html": "<a class=\"ds-footer-link\" href=\"mailto:hello@example.com\">Email</a>",
+      "css": ".ds-footer-link { font-family: 'sc', sans-serif; font-size: 15px; color: #171717; text-decoration: none; transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: crosshair; } .ds-footer-link:hover { filter: blur(2px); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Monument-Scale Thesis",
+    "overview": "A white gallery wall, one enormous serif word at a time. The site treats each company name, each paper, each essay as a monument carved in near-black ink on a white field — big enough to read at a glance, quiet enough that the visitor's only task is choosing which monument to walk toward. Depth is never rendered with shadows; it is rendered with blur — the hovered name snaps into focus while its siblings fall out of it, the preloader blooms from blur into clarity, and the page itself resolves from soft fog on load.",
+    "keyCharacteristics": [
+      "Monument-scale uppercase serif display type (up to 28vw on the hero wordmark)",
+      "White paper / near-black ink, with gray reserved for meta-labels and hairlines",
+      "Blur is the depth language — hover, preloader, and page reveal all use it",
+      "No border radius anywhere; sharp, uncompromising edges",
+      "Crosshair cursor on every interactive element",
+      "Image previews float at the bottom-right on project hover; siblings blur"
+    ],
+    "rules": [
+      { "name": "The Rarity Rule", "body": "Color appears only where meaning demands it. Green and red exist solely to make the two non-company projects read differently from the four company monuments. Any third use dilutes the signal.", "section": "colors" },
+      { "name": "The One-Voice Rule", "body": "Only the serif speaks loudly. Any text that must be quiet is set in the sans, in gray, in uppercase, or all three. When in doubt, make it smaller and grayer.", "section": "typography" }
+    ],
+    "dos": [
+      "Do set every project name in the giant serif — the monument scale is the brand.",
+      "Do use blur for all depth and state changes; it is the system's material.",
+      "Do keep backgrounds pure white and text near-black; gray is for meta only.",
+      "Do use the crosshair cursor as the default pointer.",
+      "Do keep hairline dividers as the only separators — never cards or boxes.",
+      "Do link every project to its live site; the work speaks for itself."
+    ],
+    "donts": [
+      "Don't add border radius, shadows, or colored surfaces — the system is flat and square.",
+      "Don't use green or red anywhere except the Education and Research wordmarks (The Rarity Rule).",
+      "Don't render two loud type voices at once; if the serif is present, everything else whispers.",
+      "Don't introduce buttons, pills, or gradient text.",
+      "Don't blur on hover for users with reduced motion — the media query must keep links readable.",
+      "Don't drop the period from \"OlaOlu.\""
+    ]
+  }
+}

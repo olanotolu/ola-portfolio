@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/components/SiteFooter";
+
 export const metadata = {
   title: "Writing — Ola Aduloju",
   description: "Essays on the future of intelligence, infrastructure, and civilization.",
@@ -22,6 +24,7 @@ const essays = [
 
 export default function WritingPage() {
   return (
+    <>
     <div className="pt-20 px-6 md:px-10 py-24 md:py-36">
       <div className="max-w-3xl">
         <h1 className="font-pr text-[calc(1rem+5vw)] leading-[0.9] mb-6">
@@ -57,5 +60,7 @@ export default function WritingPage() {
         </ul>
       </div>
     </div>
+    <SiteFooter />
+    </>
   );
 }

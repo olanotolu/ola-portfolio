@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/components/SiteFooter";
+
 export const metadata = {
   title: "Research — Ola Aduloju",
   description:
@@ -43,6 +45,7 @@ const papers = [
 
 export default function ResearchPage() {
   return (
+    <>
     <div className="pt-20 px-6 md:px-10 py-24 md:py-36">
       <div className="max-w-3xl">
         <h1 className="font-pr text-[calc(1rem+5vw)] leading-[0.9] mb-6">
@@ -52,17 +55,13 @@ export default function ResearchPage() {
           Things I&rsquo;m trying to understand before they become companies.
         </p>
 
-        {/* Topics */}
+        {/* Topics — one italic serif agenda line, the extended thesis */}
         <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-6">
           Topics
         </h2>
-        <ul className="flex flex-wrap gap-x-6 gap-y-3 mb-20">
-          {researchTopics.map((topic) => (
-            <li key={topic} className="font-pr text-[20px] md:text-[26px] leading-[1.1]">
-              {topic}
-            </li>
-          ))}
-        </ul>
+        <p className="font-pr italic text-[18px] md:text-[22px] leading-[1.5] max-w-4xl mb-20">
+          {researchTopics.join(", ")}.
+        </p>
 
         {/* Papers */}
         <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-6">
@@ -94,5 +93,7 @@ export default function ResearchPage() {
         </ul>
       </div>
     </div>
+    <SiteFooter />
+    </>
   );
 }
