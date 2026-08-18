@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
 import { SiteFooter } from "@/components/SiteFooter";
 import { scrollToHash } from "@/lib/lenis";
@@ -9,10 +9,51 @@ import { scrollToHash } from "@/lib/lenis";
 // ponytail: personal research institution — thesis, about, projects, research, writing, now.
 // Desktop (≥1024px): hover name → show image, blur others.
 // Mobile (<1024px): scroll → highlight name nearest viewport center.
+
+// Hero quip, segmented so the flag emoji and Harvard shield can sit inline
+// while the text streams in via the typewriter.
+type QuipSeg = { type: "text"; value: string } | { type: "flag" } | { type: "logo" };
+const QUIP_SEGS: QuipSeg[] = [
+  { type: "text", value: "currently: " },
+  { type: "flag" },
+  { type: "text", value: " mum fighting me for leaving " },
+  { type: "logo" },
+];
+const QUIP_TOTAL = QUIP_SEGS.reduce((n, s) => n + (s.type === "text" ? s.value.length : 0), 0);
+
 export default function Home() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [clones, setClones] = useState(0);
   const [nycTime, setNycTime] = useState("");
+  const [typed, setTyped] = useState(0);
+
+  // Typewriter: the hero quip types itself out once the preloader reveals the
+  // page. Text segments stream in; the flag and shield appear at their spot in
+  // the line. Reduced motion skips straight to the full line.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setTyped(QUIP_TOTAL);
+      return;
+    }
+    let started = false;
+    let typeTimer: ReturnType<typeof setInterval> | undefined;
+    let i = 0;
+    const waitTimer = setInterval(() => {
+      const revealed = document.getElementById("pg-wrp")?.classList.contains("revealed");
+      if (!revealed || started) return;
+      started = true;
+      clearInterval(waitTimer);
+      typeTimer = setInterval(() => {
+        i += 1;
+        setTyped(i);
+        if (i >= QUIP_TOTAL) clearInterval(typeTimer);
+      }, 32);
+    }, 100);
+    return () => {
+      clearInterval(waitTimer);
+      if (typeTimer) clearInterval(typeTimer);
+    };
+  }, []);
 
   useEffect(() => {
     function update() {
@@ -38,6 +79,14 @@ export default function Home() {
       if (!wrap) return;
       const links = wrap.querySelectorAll<HTMLElement>("._prj-lnk");
       const vh = window.innerHeight;
+      // Only highlight while the project wall is on screen — otherwise the
+      // floating preview would linger over the hero/About sections.
+      const wr = wrap.getBoundingClientRect();
+      if (wr.top > vh || wr.bottom < 0) {
+        links.forEach((l) => l.classList.remove("is-active"));
+        wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
+        return;
+      }
       let closest: HTMLElement | null = null;
       let min = Infinity;
       links.forEach((l) => {
@@ -50,13 +99,13 @@ export default function Home() {
         }
       });
       links.forEach((l) => {
-        l.classList.remove("blurry");
+        l.classList.add("blurry");
         l.classList.remove("is-active");
       });
       wrap.querySelectorAll("._prj-img").forEach((i) => i.classList.remove("is-active"));
       if (closest) {
         const c = closest as HTMLElement;
-        c.classList.add("blurry", "is-active");
+        c.classList.add("is-active");
         const img = wrap.querySelector(`._prj-img[data-for="${c.dataset.slug}"]`);
         img?.classList.add("is-active");
       }
@@ -71,8 +120,11 @@ export default function Home() {
     if (!wrap) return;
     const observer = new IntersectionObserver(
       (entries) => {
+        // Cap at 4 clones (5 sets) — the marquee keeps its momentum but the
+        // footnote and footer must stay reachable; unbounded appends push them
+        // out of reach forever.
         if (entries[0].isIntersecting) {
-          setClones((c) => c + 1);
+          setClones((c) => Math.min(c + 1, 4));
         }
       },
       { threshold: 0.01 }
@@ -112,7 +164,12 @@ export default function Home() {
     const style = p.color ? { color: p.color } : undefined;
     const cls =
       "_prj-lnk relative font-pr uppercase leading-[0.9] md:leading-[0.85] lg:leading-[0.8] text-[calc(1rem+6vw)] text-center overflow-hidden md:-mb-2 lnk-blr-hvr hover:blur-[2px] hover:lg:blur-[5px] duration-150 cursor-crosshair";
-    const nameEl = <span className="pointer-events-none">{p.name}</span>;
+    const nameEl = (
+      <span className="pointer-events-none">
+        {p.name}
+        {p.prototype && <sup className="ml-0.5 text-[0.32em] align-super">*</sup>}
+      </span>
+    );
     return (
       <div key={p.slug}>
         {p.url ? (
@@ -130,6 +187,11 @@ export default function Home() {
           <div data-slug={p.slug} style={style} className={cls}>
             {nameEl}
           </div>
+        )}
+        {p.tagline && (
+          <p className="pointer-events-none mt-2 mb-5 md:mb-7 text-center font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500">
+            {p.tagline}
+          </p>
         )}
         {p.logo === "harvard" && (
           <div className="flex justify-center mt-4 mb-6">
@@ -159,7 +221,7 @@ export default function Home() {
     Array.from({ length: clones + 1 }).map((_, setIdx) => (
       <div key={setIdx} className="flex flex-col items-center _prjs-cnt">
         {featured.map((p) => renderProject(p, setIdx))}
-        {setIdx === 0 && (
+        {setIdx === 0 && rest.length > 0 && (
           <div className="w-full max-w-[200px] h-px bg-gray-200 my-10 md:my-16" />
         )}
         {rest.map((p) => renderProject(p, setIdx))}
@@ -177,6 +239,33 @@ export default function Home() {
             </p>
             <p className="font-sc text-[11px] uppercase tracking-[0.08em] text-gray-500 tabular-nums">
               NYC {nycTime}
+            </p>
+            <p
+              aria-label="currently: nigerian mum fighting me for leaving harvard"
+              className="font-pr italic text-[15px] md:text-[16px] text-gray-600 mt-1.5"
+            >
+              {(() => {
+                let consumed = 0;
+                return QUIP_SEGS.map((seg, idx) => {
+                  if (seg.type === "text") {
+                    const start = consumed;
+                    consumed += seg.value.length;
+                    return <Fragment key={idx}>{seg.value.slice(0, Math.max(0, typed - start))}</Fragment>;
+                  }
+                  if (typed < consumed) return null;
+                  return seg.type === "flag" ? (
+                    <span key={idx} aria-hidden="true">🇳🇬</span>
+                  ) : (
+                    <img
+                      key={idx}
+                      src="/harvard.svg"
+                      alt="Harvard University"
+                      className="inline-block ml-1 h-[0.95em] w-auto align-[-0.12em]"
+                    />
+                  );
+                });
+              })()}
+              <span aria-hidden="true" className="type-cursor" />
             </p>
           </div>
           <nav aria-label="Site" className="flex flex-col items-end gap-0.5 font-sc text-[11px] uppercase leading-[1.4]">
@@ -231,11 +320,26 @@ export default function Home() {
             About
           </h2>
 
-          <p className="font-sc text-[17px] md:text-[19px] leading-relaxed">
-            I build at the edge of software, intelligence, and physical
-            infrastructure. I&rsquo;m interested in technologies that remove
-            fundamental constraints and expand what civilization can do.
-          </p>
+          <div className="space-y-6">
+            <p className="font-sc text-[17px] md:text-[19px] leading-relaxed">
+              Hi, I&rsquo;m Ola.
+            </p>
+            <p className="font-sc text-[17px] md:text-[19px] leading-relaxed">
+              I&rsquo;m currently digging into the unknown, mostly to see
+              what&rsquo;s actually down there.
+            </p>
+            <p className="font-sc text-[17px] md:text-[19px] leading-relaxed">
+              I like finding questions that seem slightly unreasonable, pulling
+              on them until something breaks, and then building whatever should
+              exist on the other side. Sometimes that means a company. Sometimes
+              it means a strange prototype. Sometimes it means realizing I was
+              asking the wrong question for three months.
+            </p>
+            <p className="font-sc text-[17px] md:text-[19px] leading-relaxed">
+              I&rsquo;m less interested in predicting the future than getting my
+              hands dirty enough to find it.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -250,6 +354,9 @@ export default function Home() {
         >
           {renderProjects()}
         </div>
+        <p className="pointer-events-none pb-24 pt-6 text-center font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500">
+          * Prototype
+        </p>
       </section>
 
       {/* ── Footer ── */}

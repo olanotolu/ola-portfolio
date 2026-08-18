@@ -43,8 +43,8 @@
       "kind": "custom",
       "refersTo": "project-link",
       "description": "The signature monument: giant serif wordmark, siblings blur on hover.",
-      "html": "<a class=\"ds-prj-link\" href=\"https://www.concya.com\" target=\"_blank\" rel=\"noopener noreferrer\"><span>Concya</span></a>",
-      "css": ".ds-prj-link { display: block; font-family: 'pr', serif; font-size: clamp(1rem, 1rem + 6vw, 7rem); line-height: 0.8; letter-spacing: -0.08em; text-transform: uppercase; color: #171717; text-align: center; text-decoration: none; cursor: crosshair; transition: filter 0.15s cubic-bezier(0.16, 1, 0.3, 1); } .ds-prj-link:hover { filter: blur(0); } .ds-prj-link:focus-visible { outline: 2px solid #171717; outline-offset: 2px; } .ds-prj-siblings { filter: blur(2px); }"
+      "html": "<a class=\"ds-prj-link\" href=\"https://www.concya.com\" target=\"_blank\" rel=\"noopener noreferrer\"><span>Concya</span></a><p class=\"ds-prj-tagline\">Autonomous General Manager for Hospitality</p>",
+      "css": ".ds-prj-link { display: block; font-family: 'pr', serif; font-size: clamp(1rem, 1rem + 6vw, 7rem); line-height: 0.8; letter-spacing: -0.08em; text-transform: uppercase; color: #171717; text-align: center; text-decoration: none; cursor: crosshair; transition: filter 0.15s cubic-bezier(0.16, 1, 0.3, 1); } .ds-prj-link:hover { filter: blur(0); } .ds-prj-link:focus-visible { outline: 2px solid #171717; outline-offset: 2px; } .ds-prj-siblings { filter: blur(2px); } .ds-prj-tagline { pointer-events: none; margin-top: 8px; margin-bottom: 20px; font-family: 'sc', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #9ca3af; text-align: center; }"
     },
     {
       "name": "Paper List Item",

@@ -184,7 +184,9 @@ Everything is square. No border radius, no rounded corners, no pill shapes — t
 - The company name in monumental serif (`calc(1rem + 6vw)`), uppercase, centered, line-height 0.8.
 - **Hover (desktop):** siblings blur 2px, hovered name snaps sharp, and a large image preview fades in fixed at bottom-right. The preview is non-interactive (`pointer-events: none`) on every breakpoint so it never blocks taps. Cursor stays crosshair everywhere — links included; the whole page is a target.
 - **Mobile:** scroll-driven — the name nearest viewport center is sharp, the rest stay blurred, and its image preview appears bottom-right (matched via the same `data-for` lookup as desktop).
-- No chromatic variants: every wordmark is ink; Education is distinguished only by its Harvard shield.
+- **Tagline (optional):** a one-line label under the name — 11px uppercase gray sans, `tracking-[0.15em]`, `pointer-events-none` so it never intercepts hover/taps (e.g. Concya's "Autonomous General Manager for Hospitality", Bustem's "AI agent to kill Copycats & Infringers").
+- **Prototype marker:** a project flagged `prototype: true` gets a superscript asterisk after its name (0.32em, `align-super`) and is resolved by a "* Prototype" footnote centered under the projects wall — same 11px gray caps voice as taglines.
+- No chromatic variants: every wordmark is ink; the two non-company projects (since removed) were distinguished by type alone, Education by its Harvard shield.
 
 ### Paper / Essay List Item
 - Full-width row with a bottom hairline; padding 24px vertical. The entire row is one link (blur-on-hover).
