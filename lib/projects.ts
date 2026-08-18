@@ -17,6 +17,6 @@ export const projects: Project[] = [
   { slug: "hilary-eden", name: "Unbehalf", image: "/projects/HE-web-content-01-819x1024.jpg", category: "Web", year: "2026", url: "https://www.unbehalf.com" },
   { slug: "jump-factory", name: "Ontitled", image: "/projects/JF-01-1024x692.jpg", category: "Branding + Web", year: "2026", url: "https://www.ontitled.com" },
   { slug: "adcker", name: "Omposition", image: "/projects/ADCKR-01-1024x900.jpg", category: "Web", year: "2026", url: "https://www.omposition.com" },
-  { slug: "jochi-labs", name: "Education", image: "/projects/JL-03-1024x640.jpg", category: "Branding", year: "2026", color: "#00ff00", logo: "harvard" },
-  { slug: "newol", name: "Research", image: "/projects/NWL-01-1-1024x1024.jpg", category: "Branding", year: "2026", color: "#ff0000" },
+  { slug: "jochi-labs", name: "Education", image: "/projects/JL-03-1024x640.jpg", category: "Branding", year: "2026", logo: "harvard" },
+  { slug: "newol", name: "Research", image: "/projects/NWL-01-1-1024x1024.jpg", category: "Branding", year: "2026" },
 ];

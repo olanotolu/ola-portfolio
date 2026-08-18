@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { projects } from "@/lib/projects";
 import { SiteFooter } from "@/components/SiteFooter";
+import { scrollToHash } from "@/lib/lenis";
 
 // ponytail: personal research institution — thesis, about, projects, research, writing, now.
 // Desktop (≥1024px): hover name → show image, blur others.
@@ -174,13 +175,31 @@ export default function Home() {
             <p className="font-sc text-[11px] uppercase tracking-[0.08em] text-gray-500 max-w-[40vw] md:max-w-none">
               Increasing the surface area of possibility
             </p>
-            <p className="font-sc text-[11px] uppercase tracking-[0.08em] text-gray-400 tabular-nums">
+            <p className="font-sc text-[11px] uppercase tracking-[0.08em] text-gray-500 tabular-nums">
               NYC {nycTime}
             </p>
           </div>
           <nav aria-label="Site" className="flex flex-col items-end gap-0.5 font-sc text-[11px] uppercase leading-[1.4]">
-            <a href="#about" className="lnk-blr-hvr px-1.5 py-1">About</a>
-            <a href="#projects" className="lnk-blr-hvr px-1.5 py-1">Projects</a>
+            <a
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToHash("#about");
+              }}
+              className="lnk-blr-hvr px-1.5 py-1"
+            >
+              About
+            </a>
+            <a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToHash("#projects");
+              }}
+              className="lnk-blr-hvr px-1.5 py-1"
+            >
+              Projects
+            </a>
             <a href="/research" className="lnk-blr-hvr px-1.5 py-1">Research</a>
             <a href="/writing" className="lnk-blr-hvr px-1.5 py-1">Writing</a>
             <a href="mailto:subxmii@gmail.com" className="lnk-blr-hvr px-1.5 py-1">Email</a>

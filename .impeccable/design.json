@@ -11,8 +11,6 @@
       "dim-ink": { "role": "neutral", "displayName": "Dim Ink", "canonical": "#9ca3af", "tonalRamp": ["#374151", "#4b5563", "#6b7280", "#9ca3af", "#c3c9d1", "#e5e7eb", "#f3f4f6", "#fafafa"] },
       "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "#e5e7eb", "tonalRamp": ["#9ca3af", "#b3b8c0", "#c3c9d1", "#d1d5db", "#e5e7eb", "#eceef0", "#f3f4f6", "#fafafa"] },
       "void": { "role": "neutral", "displayName": "Void", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#2b2b2b", "#3d3d3d", "#525252", "#6b6b6b"] },
-      "signal-green": { "role": "tertiary", "displayName": "Signal Green", "canonical": "#00ff00", "tonalRamp": ["#004d00", "#008000", "#00b300", "#00e600", "#00ff00", "#66ff66", "#b3ffb3", "#e6ffe6"] },
-      "signal-red": { "role": "tertiary", "displayName": "Signal Red", "canonical": "#ff0000", "tonalRamp": ["#4d0000", "#800000", "#b30000", "#e60000", "#ff0000", "#ff6666", "#ffb3b3", "#ffe6e6"] }
     },
     "typographyMeta": {
       "display": { "displayName": "Monument Serif", "purpose": "Hero wordmark and project names only. Uppercase, tight tracking." },
@@ -85,7 +83,7 @@
       "Image previews float at the bottom-right on project hover; siblings blur"
     ],
     "rules": [
-      { "name": "The Rarity Rule", "body": "Color appears only where meaning demands it. Green and red exist solely to make the two non-company projects read differently from the four company monuments. Any third use dilutes the signal.", "section": "colors" },
+      { "name": "The Ink-Only Rule", "body": "Nothing on the page is chromatic. Every project wordmark — company or otherwise — is ink on paper; the two non-company projects are distinguished by type alone (Education carries its Harvard shield). If a moment needs emphasis, use size or weight, never hue.", "section": "colors" },
       { "name": "The One-Voice Rule", "body": "Only the serif speaks loudly. Any text that must be quiet is set in the sans, in gray, in uppercase, or all three. When in doubt, make it smaller and grayer.", "section": "typography" }
     ],
     "dos": [
@@ -98,7 +96,7 @@
     ],
     "donts": [
       "Don't add border radius, shadows, or colored surfaces — the system is flat and square.",
-      "Don't use green or red anywhere except the Education and Research wordmarks (The Rarity Rule).",
+      "Don't introduce any chromatic color — no green, no red, no accents (The Ink-Only Rule).",
       "Don't render two loud type voices at once; if the serif is present, everything else whispers.",
       "Don't introduce buttons, pills, or gradient text.",
       "Don't blur on hover for users with reduced motion — the media query must keep links readable.",

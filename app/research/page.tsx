@@ -56,7 +56,7 @@ export default function ResearchPage() {
         </p>
 
         {/* Topics — one italic serif agenda line, the extended thesis */}
-        <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-6">
+        <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-600 mb-6">
           Topics
         </h2>
         <p className="font-pr italic text-[18px] md:text-[22px] leading-[1.5] max-w-4xl mb-20">
@@ -64,7 +64,7 @@ export default function ResearchPage() {
         </p>
 
         {/* Papers */}
-        <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-500 mb-6">
+        <h2 className="font-sc text-[11px] uppercase tracking-[0.15em] text-gray-600 mb-6">
           Papers
         </h2>
         <ul className="space-y-0 mb-20">
@@ -80,7 +80,7 @@ export default function ResearchPage() {
                   <h3 className="font-pr text-[20px] md:text-[26px] leading-[1.1]">
                     {paper.title}
                   </h3>
-                  <span className="font-sc text-[12px] uppercase tracking-wider text-gray-500 whitespace-nowrap">
+                  <span className="font-sc text-[12px] uppercase tracking-wider text-gray-600 whitespace-nowrap">
                     {paper.year}
                   </span>
                 </div>

@@ -47,7 +47,7 @@ export default function WritingPage() {
                   <h2 className="font-pr text-[20px] md:text-[26px] leading-[1.1]">
                     {essay.title}
                   </h2>
-                  <span className="font-sc text-[12px] uppercase tracking-wider text-gray-500 whitespace-nowrap">
+                  <span className="font-sc text-[12px] uppercase tracking-wider text-gray-600 whitespace-nowrap">
                     {essay.year}
                   </span>
                 </div>

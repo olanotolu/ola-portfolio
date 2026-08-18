@@ -9,8 +9,6 @@ colors:
   muted-ink: "#737373"
   dim-ink: "#9ca3af"
   void: "#000000"
-  signal-green: "#00ff00"
-  signal-red: "#ff0000"
 typography:
   display:
     fontFamily: "pr, serif"
@@ -122,7 +120,7 @@ The visual world is deliberately minimal in chrome: no cards, no buttons, no col
 
 ## Colors
 
-One field, one ink, and grays that step down quietly for meta content. Accent color is nearly absent — the only chromatic moments are the two signal colors used for the Education (green) and Research (red) project wordmarks.
+One field, one ink, and grays that step down quietly for meta content. Accent color is absent by doctrine — the palette is strictly paper, ink, and gray. Nothing on the page is chromatic.
 
 ### Primary
 - **Ink** (#171717): the single text color for all headings, wordmarks, and body copy. Near-black, slightly warm against pure white.
@@ -135,12 +133,8 @@ One field, one ink, and grays that step down quietly for meta content. Accent co
 - **Hairline** (#e5e7eb): the only border — bottom rules under papers/essays and the projects divider.
 - **Void** (#000000): preloader overlay and its giant wordmark.
 
-### Tertiary
-- **Signal Green** (#00ff00): reserved exclusively for the Education project wordmark.
-- **Signal Red** (#ff0000): reserved exclusively for the Research project wordmark.
-
 ### Named Rules
-**The Rarity Rule.** Color appears only where meaning demands it. Green and red exist solely to make the two non-company projects read differently from the four company monuments. Any third use dilutes the signal.
+**The Ink-Only Rule.** Nothing on the page is chromatic. Every project wordmark — company or otherwise — is ink on paper; the two non-company projects are distinguished by type alone (Education carries its Harvard shield). If a moment needs emphasis, use size or weight, never hue.
 
 ## Typography
 
@@ -181,15 +175,16 @@ Everything is square. No border radius, no rounded corners, no pill shapes — t
 - Fixed top-left, "OlaOlu." in the body sans (15px). Blur-on-hover. The period is part of the mark — never drop it.
 
 ### Nav Links
-- Uppercase 10px sans, tight tracking (0.08em), stacked right-aligned in the hero.
+- Uppercase 11px sans, tight tracking (0.08em), stacked right-aligned in the hero.
 - **Hover:** blurs 2px (the `lnk-blr-hvr` signature).
 - **Focus:** 2px ink outline, offset 2px.
+- **Anchors:** About and Projects smooth-scroll to their sections via the shared Lenis instance (`lib/lenis.ts`), honoring each section's scroll margin.
 
 ### Project Link (the signature component)
 - The company name in monumental serif (`calc(1rem + 6vw)`), uppercase, centered, line-height 0.8.
 - **Hover (desktop):** siblings blur 2px, hovered name snaps sharp, and a large image preview fades in fixed at bottom-right. The preview is non-interactive (`pointer-events: none`) on every breakpoint so it never blocks taps. Cursor stays crosshair everywhere — links included; the whole page is a target.
 - **Mobile:** scroll-driven — the name nearest viewport center is sharp, the rest stay blurred, and its image preview appears bottom-right (matched via the same `data-for` lookup as desktop).
-- Chromatic variants: Education renders green (#00ff00), Research red (#ff0000).
+- No chromatic variants: every wordmark is ink; Education is distinguished only by its Harvard shield.
 
 ### Paper / Essay List Item
 - Full-width row with a bottom hairline; padding 24px vertical. The entire row is one link (blur-on-hover).
@@ -218,7 +213,7 @@ Everything is square. No border radius, no rounded corners, no pill shapes — t
 
 ### Don't:
 - **Don't** add border radius, shadows, or colored surfaces — the system is flat and square.
-- **Don't** use green or red anywhere except the Education and Research wordmarks (The Rarity Rule).
+- **Don't** introduce any chromatic color — no green, no red, no accents (The Ink-Only Rule).
 - **Don't** render two loud type voices at once; if the serif is present, everything else whispers.
 - **Don't** introduce buttons, pills, or gradient text.
 - **Don't** blur on hover for users with reduced motion — the media query must keep links readable.
